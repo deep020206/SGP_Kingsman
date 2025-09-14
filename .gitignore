@@ -134,6 +134,25 @@ Thumbs.db
 *.orig
 *.rej
 
+# Backup and temporary development files
+*.bak
+*.bak2
+*.bak3
+*.backup
+*.old
+*.new
+*.temp
+*.tmp
+
+# Development and testing files
+*test*.html
+*working*.html
+*debug*.js
+*check*.js
+*fix*.js
+*cleanup*
+create-*-user.js
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
