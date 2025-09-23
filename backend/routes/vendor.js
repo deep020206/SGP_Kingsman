@@ -384,11 +384,12 @@ router.patch('/orders/:id/status', vendorAuth, async (req, res) => {
     }
 
     const order = await Order.findOne({
-      _id: req.params.id
+      _id: req.params.id,
+      vendorId: req.user.userId
     });
 
     if (!order) {
-      return res.status(404).json({ message: 'Order not found' });
+      return res.status(404).json({ message: 'Order not found or you are not authorized to update this order' });
     }
 
     // Handle partial rejection

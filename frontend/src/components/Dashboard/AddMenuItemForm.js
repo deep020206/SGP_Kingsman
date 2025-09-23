@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import MenuManagementService from '../../services/menu/menuManagementService';
 
 const AddMenuItemForm = ({ onAdd }) => {
   const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState('');
   const [isAvailable, setIsAvailable] = useState(true);
@@ -10,12 +11,30 @@ const AddMenuItemForm = ({ onAdd }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const menuService = new MenuManagementService();
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        setError('Please select a valid image file');
+        return;
+      }
+      
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        setError('Image size should be less than 5MB');
+        return;
+      }
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setImage(reader.result);
+        setError(''); // Clear any previous errors
+      };
+      reader.onerror = () => {
+        setError('Failed to read image file');
       };
       reader.readAsDataURL(file);
     }
@@ -25,27 +44,49 @@ const AddMenuItemForm = ({ onAdd }) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+    
     try {
-      const token = localStorage.getItem('token');
-      const res = await axios.post('http://localhost:5001/api/vendor/menu-items', {
-        name,
-        price,
-        category,
+      const menuItemData = {
+        name: name.trim(),
+        description: description.trim(),
+        price: parseFloat(price),
+        category: category.trim(),
         isAvailable: isAvailable === true || isAvailable === 'true',
-        image,
-      }, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      onAdd(res.data);
+        image: image || '' // Include image (base64) or empty string
+      };
+
+      console.log('🍕 Submitting menu item:', menuItemData);
+
+      const result = await menuService.addMenuItem(menuItemData);
+      const menuItem = result.menuItem || result;
+      
+      console.log('✅ Menu item added successfully:', result);
+      
+      // Call onAdd callback with the new item
+      if (onAdd && typeof onAdd === 'function') {
+        onAdd(menuItem);
+      }
+      
+      // Reset form
       setName('');
+      setDescription('');
       setPrice('');
       setCategory('');
       setIsAvailable(true);
       setImage(null);
+      
+      // Reset file input
+      const fileInput = document.querySelector('input[type="file"]');
+      if (fileInput) {
+        fileInput.value = '';
+      }
+      
     } catch (err) {
-      setError('Failed to add item');
+      console.error('❌ Failed to add menu item:', err);
+      setError(err.message || 'Failed to add menu item. Please try again.');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (

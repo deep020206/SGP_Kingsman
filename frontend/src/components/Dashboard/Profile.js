@@ -91,7 +91,6 @@ const Profile = ({ isDarkMode }) => {
           <div className={`p-3 rounded-lg ${isDarkMode ? 'bg-yellow-500/20' : 'bg-yellow-100'}`}>
             <UserIcon className={`h-8 w-8 ${isDarkMode ? 'text-yellow-400' : 'text-yellow-600'}`} />
           </div>
-          <h2 className={`text-2xl font-bold ml-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Profile</h2>
         </div>
         
         {success && (

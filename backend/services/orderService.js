@@ -1,5 +1,6 @@
 const { Order, GroupOrder, MenuItem, VendorAnalytics, User } = require('../models');
 const notificationService = require('./notificationService');
+const logger = require('../utils/logger');
 
 class OrderService {
   async getVendorOrders(vendorId, status = null) {

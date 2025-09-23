@@ -7,10 +7,21 @@ import Menu from './components/Menu/Menu';
 import Tracking from './components/Orders/Tracking';
 import Dashboard from './components/Dashboard/Dashboard';
 import UserDashboard from './components/Dashboard/UserDashboard';
+import UserDashboardLayout from './components/Dashboard/UserDashboardLayout';
 import LandingPage from './components/LandingPage';
 import { AuthProvider, useAuth } from './components/Auth/AuthContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+// Import Zustand stores
+import { initializeStores, useAuthStore, useUIStore, useSocketStore } from './stores';
+
+// Import DevTools for development
+import DevTools from './components/DevTools/DevTools';
+
+// Import test component
+import StoreTest from './components/Testing/StoreTest';
+import StoreIntegrationDemo from './components/Testing/StoreIntegrationDemo';
 
 function AppRoutes() {
   const { user } = useAuth();
@@ -57,7 +68,7 @@ function AppRoutes() {
   const ProtectedRoute = ({ element: Element, allowedRoles }) => {
     if (!userRole || !allowedRoles.includes(userRole)) {
       // Redirect to appropriate dashboard based on role
-      return userRole === 'vendor' ? <Dashboard /> : <UserDashboard />;
+      return userRole === 'vendor' ? <Dashboard /> : <UserDashboardLayout />;
     }
     return Element;
   };
@@ -77,13 +88,22 @@ function AppRoutes() {
         path="/user-dashboard" 
         element={
           <ProtectedRoute 
-            element={<UserDashboard />} 
+            element={<UserDashboardLayout />} 
             allowedRoles={['student']} 
           />
         } 
       />
       <Route path="/tracking" element={<Tracking />} />
       <Route path="/menu" element={<Menu />} />
+      
+      {/* Testing Routes - Only in development */}
+      {process.env.NODE_ENV === 'development' && (
+        <>
+          <Route path="/test-stores" element={<StoreTest />} />
+          <Route path="/demo-stores" element={<StoreIntegrationDemo />} />
+        </>
+      )}
+      
       <Route path="*" element={
         userRole === 'vendor' ? <Dashboard /> : <UserDashboard />
       } />
@@ -92,6 +112,20 @@ function AppRoutes() {
 }
 
 function App() {
+  // Initialize stores on app startup
+  useEffect(() => {
+    const initApp = async () => {
+      try {
+        await initializeStores();
+        console.log('🚀 Kingsmen app initialized with Zustand stores');
+      } catch (error) {
+        console.error('❌ Failed to initialize stores:', error);
+      }
+    };
+    
+    initApp();
+  }, []);
+
   return (
     <AuthProvider>
       <DarkModeProvider>
@@ -103,6 +137,9 @@ function App() {
         >
           <AppRoutes />
           <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+          
+          {/* Development Tools */}
+          <DevTools />
         </Router>
       </DarkModeProvider>
     </AuthProvider>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { 
-  HomeIcon, 
   ShoppingBagIcon, 
   ShoppingCartIcon, 
   UserIcon,
@@ -8,7 +7,6 @@ import {
   ClipboardDocumentListIcon
 } from '@heroicons/react/24/outline';
 import { 
-  HomeIcon as HomeIconSolid, 
   ShoppingBagIcon as ShoppingBagIconSolid, 
   ShoppingCartIcon as ShoppingCartIconSolid, 
   UserIcon as UserIconSolid,
@@ -25,13 +23,6 @@ const MobileBottomNav = ({
   const navItems = [
     {
       id: 'browse',
-      label: 'Home',
-      icon: HomeIcon,
-      activeIcon: HomeIconSolid,
-      path: 'browse'
-    },
-    {
-      id: 'menu',
       label: 'Menu',
       icon: ShoppingBagIcon,
       activeIcon: ShoppingBagIconSolid,

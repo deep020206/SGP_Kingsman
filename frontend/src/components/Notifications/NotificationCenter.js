@@ -123,31 +123,33 @@ const NotificationCenter = ({ isOpen, onClose, isDarkMode }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className={`max-w-md w-full max-h-[80vh] rounded-lg shadow-xl ${
-        isDarkMode ? 'bg-gray-800' : 'bg-white'
+      <div className={`max-w-md w-full max-h-[80vh] rounded-xl shadow-2xl border ${
+        isDarkMode 
+          ? 'bg-gray-800 border-gray-700' 
+          : 'bg-white border-gray-200'
       }`}>
         {/* Header */}
         <div className={`flex items-center justify-between p-4 border-b ${
           isDarkMode ? 'border-gray-700' : 'border-gray-200'
         }`}>
           <div className="flex items-center space-x-2">
-            <BellIcon className={`h-6 w-6 ${isDarkMode ? 'text-white' : 'text-gray-900'}`} />
+            <BellIcon className={`h-6 w-6 ${isDarkMode ? 'text-yellow-400' : 'text-gray-900'}`} />
             <h3 className={`text-lg font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
               Notifications
             </h3>
             {unreadCount > 0 && (
-              <span className="bg-red-500 text-white text-xs rounded-full px-2 py-1">
+              <span className="bg-red-500 text-white text-xs rounded-full px-2 py-1 font-medium">
                 {unreadCount}
               </span>
             )}
           </div>
           <button
             onClick={onClose}
-            className={`p-1 rounded-full hover:bg-gray-100 ${
-              isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'
+            className={`p-2 rounded-lg transition-colors ${
+              isDarkMode ? 'hover:bg-gray-700 text-gray-400 hover:text-white' : 'hover:bg-gray-100 text-gray-600'
             }`}
           >
-            <XMarkIcon className={`h-5 w-5 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`} />
+            <XMarkIcon className="h-5 w-5" />
           </button>
         </div>
 
@@ -155,10 +157,10 @@ const NotificationCenter = ({ isOpen, onClose, isDarkMode }) => {
         <div className={`flex border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
           <button
             onClick={() => setActiveTab('all')}
-            className={`flex-1 py-3 px-4 text-sm font-medium ${
+            className={`flex-1 py-3 px-4 text-sm font-medium transition-colors ${
               activeTab === 'all'
                 ? isDarkMode
-                  ? 'text-white border-b-2 border-blue-500'
+                  ? 'text-yellow-400 border-b-2 border-yellow-400'
                   : 'text-blue-600 border-b-2 border-blue-500'
                 : isDarkMode
                 ? 'text-gray-400 hover:text-white'
@@ -169,10 +171,10 @@ const NotificationCenter = ({ isOpen, onClose, isDarkMode }) => {
           </button>
           <button
             onClick={() => setActiveTab('unread')}
-            className={`flex-1 py-3 px-4 text-sm font-medium ${
+            className={`flex-1 py-3 px-4 text-sm font-medium transition-colors ${
               activeTab === 'unread'
                 ? isDarkMode
-                  ? 'text-white border-b-2 border-blue-500'
+                  ? 'text-yellow-400 border-b-2 border-yellow-400'
                   : 'text-blue-600 border-b-2 border-blue-500'
                 : isDarkMode
                 ? 'text-gray-400 hover:text-white'
@@ -188,8 +190,8 @@ const NotificationCenter = ({ isOpen, onClose, isDarkMode }) => {
           <div className={`p-3 border-b ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
             <button
               onClick={markAllAsRead}
-              className={`text-sm flex items-center space-x-1 ${
-                isDarkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'
+              className={`text-sm flex items-center space-x-1 transition-colors ${
+                isDarkMode ? 'text-yellow-400 hover:text-yellow-300' : 'text-blue-600 hover:text-blue-700'
               }`}
             >
               <CheckIcon className="h-4 w-4" />
@@ -214,12 +216,20 @@ const NotificationCenter = ({ isOpen, onClose, isDarkMode }) => {
               </p>
             </div>
           ) : (
-            <div className="divide-y divide-gray-200 dark:divide-gray-700">
+            <div className={`${isDarkMode ? 'divide-gray-600' : 'divide-gray-200'} divide-y`}>
               {notifications.map((notification) => (
                 <div
                   key={notification._id}
-                  className={`p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
-                    !notification.isRead ? 'bg-blue-50 dark:bg-blue-900/20' : ''
+                  className={`p-4 transition-colors ${
+                    isDarkMode 
+                      ? 'hover:bg-gray-700' 
+                      : 'hover:bg-gray-50'
+                  } ${
+                    !notification.isRead 
+                      ? isDarkMode 
+                        ? 'bg-yellow-500/10 border-l-4 border-yellow-500' 
+                        : 'bg-blue-50 border-l-4 border-blue-500'
+                      : ''
                   }`}
                 >
                   <div className="flex items-start space-x-3">
@@ -240,7 +250,7 @@ const NotificationCenter = ({ isOpen, onClose, isDarkMode }) => {
                             {getTimeAgo(notification.createdAt)}
                           </span>
                           {!notification.isRead && (
-                            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                            <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
                           )}
                         </div>
                       </div>
@@ -253,9 +263,9 @@ const NotificationCenter = ({ isOpen, onClose, isDarkMode }) => {
                         {!notification.isRead && (
                           <button
                             onClick={() => markAsRead(notification._id)}
-                            className={`text-xs px-2 py-1 rounded ${
+                            className={`text-xs px-3 py-1 rounded-lg transition-colors ${
                               isDarkMode
-                                ? 'text-blue-400 hover:text-blue-300 hover:bg-blue-900/30'
+                                ? 'text-yellow-400 hover:text-yellow-300 hover:bg-yellow-500/20'
                                 : 'text-blue-600 hover:text-blue-700 hover:bg-blue-50'
                             }`}
                           >
@@ -264,9 +274,9 @@ const NotificationCenter = ({ isOpen, onClose, isDarkMode }) => {
                         )}
                         <button
                           onClick={() => deleteNotification(notification._id)}
-                          className={`text-xs px-2 py-1 rounded ${
+                          className={`text-xs px-3 py-1 rounded-lg transition-colors ${
                             isDarkMode
-                              ? 'text-red-400 hover:text-red-300 hover:bg-red-900/30'
+                              ? 'text-red-400 hover:text-red-300 hover:bg-red-500/20'
                               : 'text-red-600 hover:text-red-700 hover:bg-red-50'
                           }`}
                         >

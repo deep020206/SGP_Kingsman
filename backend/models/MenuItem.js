@@ -39,10 +39,18 @@ const menuItemSchema = new mongoose.Schema({
     type: String,
     validate: {
       validator: function(v) {
-        // Basic URL validation - you might want to make this more sophisticated
-        return !v || /^https?:\/\/.+/.test(v);
+        // Accept either HTTP/HTTPS URLs or base64 data URLs
+        if (!v) return true; // Allow empty values
+        
+        // Check for valid HTTP/HTTPS URL
+        const urlPattern = /^https?:\/\/.+/;
+        
+        // Check for valid base64 data URL - simplified pattern
+        const dataUrlPattern = /^data:image\/.+;base64,/;
+        
+        return urlPattern.test(v) || dataUrlPattern.test(v);
       },
-      message: props => `${props.value} is not a valid image URL`
+      message: props => `${props.value} is not a valid image URL or base64 data URL`
     }
   },
   isAvailable: { 

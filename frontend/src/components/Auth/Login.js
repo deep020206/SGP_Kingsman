@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import api from '../../api/axios';
 import { useAuth } from './AuthContext';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import { XMarkIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
 
 const Login = ({ onClose, onSwitchToSignup }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const { login } = useAuth();
@@ -118,25 +119,48 @@ const Login = ({ onClose, onSwitchToSignup }) => {
             required
           />
         </div>
-        <div>
+        <div className="relative">
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
-            className="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white placeholder-gray-400"
+            className="w-full p-3 pr-12 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white placeholder-gray-400"
             required
           />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-yellow-400 transition-colors duration-200"
+          >
+            {showPassword ? (
+              <EyeSlashIcon className="h-5 w-5" />
+            ) : (
+              <EyeIcon className="h-5 w-5" />
+            )}
+          </button>
         </div>
         {errorMsg && <div className="text-red-400 text-sm text-center -mt-1">{errorMsg}</div>}
         <button
           type="submit"
           disabled={submitting}
-          className={`w-full bg-yellow-500 text-gray-900 font-bold p-3 rounded-full mt-2 transition shadow-lg ${
-            submitting ? 'opacity-60 cursor-not-allowed' : 'hover:bg-yellow-400'
+          className={`w-full bg-yellow-500 text-gray-900 font-bold p-3 rounded-full mt-2 transition shadow-lg flex items-center justify-center ${
+            submitting ? 'opacity-60 cursor-not-allowed' : 'hover:bg-yellow-400 transform hover:scale-105'
           }`}
         >
-          {submitting ? 'Logging in...' : 'Login'}
+          {submitting ? (
+            <>
+              <div className="relative mr-3">
+                <div className="w-5 h-5 border-2 border-gray-900/20 border-t-gray-900 rounded-full animate-spin"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-2 h-2 bg-gray-900 rounded-full animate-pulse"></div>
+                </div>
+              </div>
+              Logging in...
+            </>
+          ) : (
+            'Login'
+          )}
         </button>
         <p className="text-center text-sm text-gray-400">
           Don&apos;t have an account?{' '}
