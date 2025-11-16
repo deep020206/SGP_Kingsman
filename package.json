@@ -1,22 +1,14 @@
 {
-  "name": "sgp-kingsman",
+  "name": "sgp-kingsman-frontend",
   "version": "1.0.0",
-  "description": "A modern food ordering system for CHARUSAT University",
+  "description": "A modern food ordering system for CHARUSAT University - Frontend",
   "private": true,
+  "homepage": ".",
   "scripts": {
-    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
-    "dev:backend": "cd Backend && npm run dev",
-    "dev:frontend": "cd Frontend && npm start",
-    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
-    "start:backend": "cd Backend && npm start",
-    "start:frontend": "cd Frontend && npm start",
-    "install:all": "npm install && cd Backend && npm install && cd ../Frontend && npm install",
+    "start": "cd Frontend && npm start",
     "build": "cd Frontend && npm run build",
-    "test": "concurrently \"npm run test:backend\" \"npm run test:frontend\"",
-    "test:backend": "cd Backend && npm test",
-    "test:frontend": "cd Frontend && npm test -- --watchAll=false",
-    "setup": "npm run install:all",
-    "clean": "rm -rf node_modules Backend/node_modules Frontend/node_modules"
+    "test": "cd Frontend && npm test",
+    "eject": "cd Frontend && npm run eject"
   },
   "keywords": [
     "food-ordering",

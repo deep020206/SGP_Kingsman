@@ -1,7 +1,6 @@
 {
-  "buildCommand": "cd Frontend && npm ci && npm run build",
+  "buildCommand": "cd Frontend && npm install && npm run build",
   "outputDirectory": "Frontend/build",
-  "installCommand": "npm install --prefix Frontend",
-  "devCommand": "cd Frontend && npm start",
-  "framework": "create-react-app"
+  "installCommand": "echo 'Skip root install'",
+  "devCommand": "cd Frontend && npm start"
 }
