@@ -1,6 +1,26 @@
 {
-  "buildCommand": "cd Frontend && npm ci --only=production && npm run build",
-  "outputDirectory": "Frontend/build",
-  "installCommand": "npm install --prefix Frontend",
-  "framework": "create-react-app"
+  "version": 2,
+  "name": "kingsman-frontend",
+  "builds": [
+    {
+      "src": "Frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "headers": {
+        "cache-control": "s-maxage=31536000,immutable"
+      },
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
 }
