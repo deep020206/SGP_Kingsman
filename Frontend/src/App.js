@@ -18,10 +18,10 @@ import NetworkMonitor from './components/NetworkMonitor';
 // Import Zustand stores
 import { initializeStores, useAuthStore, useUIStore, useSocketStore } from './stores';
 
-// Import test component
-import StoreTest from './components/Testing/StoreTest';
-import StoreIntegrationDemo from './components/Testing/StoreIntegrationDemo';
-import OTPTest from './components/Auth/OTPTest';
+// Import test component (removed for production build)
+// import StoreTest from './components/Testing/StoreTest';
+// import StoreIntegrationDemo from './components/Testing/StoreIntegrationDemo';
+// import OTPTest from './components/Auth/OTPTest';
 
 function AppRoutes() {
   const { user } = useAuth();
@@ -99,9 +99,10 @@ function AppRoutes() {
       {/* Testing Routes - Only in development */}
       {process.env.NODE_ENV === 'development' && (
         <>
-          <Route path="/test-stores" element={<StoreTest />} />
-          <Route path="/demo-stores" element={<StoreIntegrationDemo />} />
-          <Route path="/test-otp" element={<OTPTest />} />
+          {/* Testing routes removed for production build */}
+          {/* <Route path="/test-stores" element={<StoreTest />} /> */}
+          {/* <Route path="/demo-stores" element={<StoreIntegrationDemo />} /> */}
+          {/* <Route path="/otp-test" element={<OTPTest />} /> */}
         </>
       )}
       
