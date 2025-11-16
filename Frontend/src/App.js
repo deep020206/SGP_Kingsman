@@ -116,16 +116,14 @@ function AppRoutes() {
 function App() {
   // Initialize stores on app startup
   useEffect(() => {
-    const initApp = async () => {
-      try {
-        await initializeStores();
+    try {
+      const success = initializeStores();
+      if (success) {
         console.log('🚀 Kingsman app initialized with Zustand stores');
-      } catch (error) {
-        console.error('❌ Failed to initialize stores:', error);
       }
-    };
-    
-    initApp();
+    } catch (error) {
+      console.error('❌ Failed to initialize stores:', error);
+    }
   }, []);
 
   return (
