@@ -1,0 +1,310 @@
+# ===== KINGSMAN FOOD ORDERING SYSTEM =====
+# Comprehensive .gitignore for MERN Stack + Vercel deployment
+
+# ===== NODE.JS & NPM =====
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ===== ENVIRONMENT VARIABLES =====
+.env
+.env.*
+!.env.example
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ===== BUILD OUTPUTS =====
+# Frontend builds
+Frontend/build/
+Frontend/dist/
+Frontend/.next/
+
+# Backend builds
+Backend/dist/
+Backend/build/
+
+# ===== LOGS =====
+logs/
+*.log
+Backend/logs/
+Frontend/logs/
+
+# ===== RUNTIME DATA =====
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# ===== TEST COVERAGE =====
+coverage/
+*.lcov
+.nyc_output
+
+# ===== CACHE DIRECTORIES =====
+.npm
+.eslintcache
+.stylelintcache
+.cache/
+.parcel-cache/
+
+# ===== TEMPORARY FILES =====
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# ===== UPLOADS & USER CONTENT =====
+Backend/uploads/*
+!Backend/uploads/.gitkeep
+
+# ===== IDE & EDITOR FILES =====
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ===== OS GENERATED FILES =====
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ===== VERCEL DEPLOYMENT =====
+.vercel
+.now
+
+# ===== TESTING =====
+# Jest
+/coverage/
+
+# Cypress
+Frontend/cypress/videos/
+Frontend/cypress/screenshots/
+
+# ===== MISC =====
+*.tgz
+*.tar.gz
+.node_repl_history
+jspm_packages/
+
+# ===== NETWORK TEST FILES =====
+network-test.html
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+.env.test
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# next.js build output
+.next
+
+# nuxt.js build output
+.nuxt
+
+# vuepress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Testing & Development Files (EXCLUDED from production)
+# Cypress E2E Testing
+cypress/
+cypress.config.js
+*.cy.js
+
+# Unit Testing
+__tests__/
+src/__tests__/
+*.test.js
+*.spec.js
+setupTests.js
+setupTests.old.js
+
+# Test Coverage & Results
+coverage/
+.nyc_output/
+junit.xml
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+.cypress/
+
+# Development Testing Files
+*test*.md
+*TEST*.md
+test-package.json
+TESTING_RECOMMENDATION.md
+ZUSTAND_TEST_RESULTS.md
+
+# Temporary files
+*.tmp
+*.temp
+
+# Upload directories (keep structure but ignore files)
+/backend/uploads/*
+!/backend/uploads/.gitkeep
+
+# Database files
+*.sqlite
+*.sqlite3
+*.db
+
+# Test coverage
+/coverage/
+
+# Build artifacts
+*.tar.gz
+*.zip
+
+# Local development files
+.local
+.cache/
+
+# MongoDB data (if running locally)
+/data/
+
+# Backup files
+*.bak
+*.backup
+
+# Editor backup files
+*~
+*.orig
+*.rej
+
+# Backup and temporary development files
+*.bak
+*.bak2
+*.bak3
+*.backup
+*.old
+*.new
+*.temp
+*.tmp
+
+# Development and debugging files (EXCLUDED from production)
+*test*.html
+*working*.html
+*debug*.js
+*check*.js
+*fix*.js
+*cleanup*
+create-*-user.js
+*.bak
+*.bak2
+*.bak3
+*.backup
+*.old
+*.new
+*.temp
+*.tmp
+
+# Development stores and hooks (EXCLUDED - contains test/dev code)
+frontend/src/stores/
+frontend/src/hooks/useCart.js
+frontend/src/hooks/useLoadingState.js
+frontend/src/hooks/useMenu.js
+frontend/src/hooks/useOrders.js
+frontend/src/hooks/useVendorOrders.js
+frontend/src/hooks/dashboard/
+frontend/src/hooks/menu/
+
+# Development services (EXCLUDED - contains test/dev code) 
+frontend/src/services/cartService.js
+frontend/src/services/menuService.js
+frontend/src/services/orderService.js
+frontend/src/services/vendorOrderService.js
+frontend/src/services/dashboard/
+frontend/src/services/menu/
+
+# Development components (EXCLUDED - test/dev components)
+frontend/src/components/DevTools/
+frontend/src/components/Testing/
+frontend/src/components/ErrorBoundary/
+frontend/src/components/Loading/
+frontend/src/components/Images/
+frontend/src/components/Cart/
+frontend/src/components/MenuBrowser/
+frontend/src/components/OrderHistory/
+frontend/src/components/VendorOrders/
+frontend/src/components/Dashboard/MenuManagement/
+frontend/src/components/Dashboard/VendorDashboard/
+frontend/src/components/Dashboard/UserDashboardLayout.js
+frontend/src/components/Auth/LoginZustand.js
+
+# Development utilities (EXCLUDED)
+frontend/src/utils/
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Mac caches
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk

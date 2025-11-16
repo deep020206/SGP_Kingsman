@@ -1,0 +1,55 @@
+{
+  "name": "sgp-kingsman",
+  "version": "1.0.0",
+  "description": "A modern food ordering system for CHARUSAT University",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd Backend && npm run dev",
+    "dev:frontend": "cd Frontend && npm start",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:backend": "cd Backend && npm start",
+    "start:frontend": "cd Frontend && npm start",
+    "install:all": "npm install && cd Backend && npm install && cd ../Frontend && npm install",
+    "build": "cd Frontend && npm run build",
+    "test": "concurrently \"npm run test:backend\" \"npm run test:frontend\"",
+    "test:backend": "cd Backend && npm test",
+    "test:frontend": "cd Frontend && npm test -- --watchAll=false",
+    "setup": "npm run install:all",
+    "clean": "rm -rf node_modules Backend/node_modules Frontend/node_modules"
+  },
+  "keywords": [
+    "food-ordering",
+    "mern-stack",
+    "react",
+    "nodejs",
+    "mongodb",
+    "socket.io",
+    "charusat",
+    "university"
+  ],
+  "author": "Deep Amarodiya <damarodiya8314@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deep020206/SGP_Kingsman.git"
+  },
+  "bugs": {
+    "url": "https://github.com/deep020206/SGP_Kingsman/issues"
+  },
+  "homepage": "https://github.com/deep020206/SGP_Kingsman#readme",
+  "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.10",
+    "framer-motion": "^12.23.9",
+    "react-icons": "^5.5.0"
+  }
+}
