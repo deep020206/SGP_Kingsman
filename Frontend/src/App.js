@@ -16,7 +16,10 @@ import NetworkStatusIndicator from './components/Network/NetworkStatusIndicator'
 import NetworkMonitor from './components/NetworkMonitor';
 
 // Import Zustand stores
-import { initializeStores, useAuthStore, useUIStore, useSocketStore } from './stores';
+import useAuthStore from './stores/authStore';
+import useUIStore from './stores/uiStore';
+import useSocketStore from './stores/socketStore';
+import { initializeStores } from './stores/index';
 
 // Import test component (removed for production build)
 // import StoreTest from './components/Testing/StoreTest';
