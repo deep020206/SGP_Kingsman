@@ -9,7 +9,14 @@ A modern, full-stack food ordering platform built specifically for **CHARUSAT Un
 [![React Version](https://img.shields.io/badge/react-%5E18.0.0-blue)](https://reactjs.org/)
 [![MongoDB](https://img.shields.io/badge/mongodb-%5E4.4-green)](https://www.mongodb.com/)
 
-## 🌟 Features
+## � Live Deployment
+
+🚀 **Frontend:** [https://kingsman-frontend-d18kn8heb-23it060-9815s-projects.vercel.app](https://kingsman-frontend-d18kn8heb-23it060-9815s-projects.vercel.app)  
+⚙️ **Backend API:** [https://sgp-kingsman-backend-nsgy412fs-23it060-9815s-projects.vercel.app](https://sgp-kingsman-backend-nsgy412fs-23it060-9815s-projects.vercel.app)
+
+> **Note:** Application is live and fully functional with MongoDB Atlas, JWT authentication, and real-time features enabled.
+
+## �🌟 Features
 
 ### 🔐 **Authentication & Security**
 - Email-based OTP verification system
