@@ -8,18 +8,20 @@ const logFormat = winston.format.combine(
   winston.format.json()
 );
 
-// Create the logger
-const logger = winston.createLogger({
-  level: config.isDevelopment ? 'debug' : 'info',
-  format: logFormat,
-  transports: [
-    // Write all logs to console
-    new winston.transports.Console({
-      format: winston.format.combine(
-        winston.format.colorize(),
-        winston.format.simple()
-      )
-    }),
+// Create transports array
+const transports = [
+  // Write all logs to console
+  new winston.transports.Console({
+    format: winston.format.combine(
+      winston.format.colorize(),
+      winston.format.simple()
+    )
+  })
+];
+
+// Only add file transports in development (not on Vercel/serverless)
+if (config.isDevelopment && process.env.VERCEL !== '1') {
+  transports.push(
     // Write all logs with level 'error' and below to error.log
     new winston.transports.File({ 
       filename: 'logs/error.log', 
@@ -33,7 +35,14 @@ const logger = winston.createLogger({
       maxsize: 5242880, // 5MB
       maxFiles: 5
     })
-  ]
+  );
+}
+
+// Create the logger
+const logger = winston.createLogger({
+  level: config.isDevelopment ? 'debug' : 'info',
+  format: logFormat,
+  transports: transports
 });
 
 // Add stream for Morgan HTTP logger
