@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { DarkModeProvider } from './components/LandingPage/DarkModeContext';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
@@ -24,12 +24,24 @@ import { initializeStores, useAuthStore, useUIStore, useSocketStore } from './st
 // import OTPTest from './components/Auth/OTPTest';
 
 function AppRoutes() {
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
 
   // Handler for actions that require login
   const requireLogin = () => setShowLoginModal(true);
+
+  // Show loading spinner while checking authentication
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-500 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!user) {
     return (
@@ -106,8 +118,17 @@ function AppRoutes() {
         </>
       )}
       
+      {/* Default redirect based on user role */}
+      <Route path="/" element={
+        (userRole === 'vendor' || userRole === 'admin') ? 
+          <Navigate to="/dashboard" replace /> : 
+          <Navigate to="/user-dashboard" replace />
+      } />
+      
       <Route path="*" element={
-        (userRole === 'vendor' || userRole === 'admin') ? <Dashboard /> : <UserDashboard />
+        (userRole === 'vendor' || userRole === 'admin') ? 
+          <Navigate to="/dashboard" replace /> : 
+          <Navigate to="/user-dashboard" replace />
       } />
     </Routes>
   );

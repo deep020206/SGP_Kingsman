@@ -8,6 +8,7 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null); // null means not logged in
   const [token, setToken] = useState(localStorage.getItem('token'));
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
 
   // Persistent login: check for token on mount
   useEffect(() => {
@@ -38,6 +39,7 @@ export const AuthProvider = ({ children }) => {
       // If we have stored user data, use it immediately
       if (storedUser) {
         setUser(storedUser);
+        setIsLoading(false); // User is loaded from storage
       }
       
       // Verify and refresh user data from server
@@ -48,6 +50,7 @@ export const AuthProvider = ({ children }) => {
             setUser(res.data);
             localStorage.setItem('user', JSON.stringify(res.data));
           }
+          setIsLoading(false);
         })
         .catch((error) => {
           console.error('Session verification failed:', error);
@@ -55,7 +58,10 @@ export const AuthProvider = ({ children }) => {
           localStorage.removeItem('user');
           setToken(null);
           setUser(null);
+          setIsLoading(false);
         });
+    } else {
+      setIsLoading(false); // No token, not loading
     }
   }, []);
 
@@ -105,7 +111,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider value={{ user, token, login, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

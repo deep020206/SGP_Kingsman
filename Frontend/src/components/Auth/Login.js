@@ -74,8 +74,10 @@ const Login = ({ onClose, onSwitchToSignup }) => {
         console.log('🧭 OTP Login: Redirecting to user dashboard:', redirectPath);
       }
       
-      // Force redirect with a clean navigation
-      window.location.href = redirectPath;
+      // Navigate to appropriate dashboard
+      setTimeout(() => {
+        navigate(redirectPath, { replace: true });
+      }, 100);
     }
   };
 
@@ -122,8 +124,10 @@ const Login = ({ onClose, onSwitchToSignup }) => {
         console.log('🧭 Redirecting to customer dashboard:', redirectPath);
       }
       
-      // Force redirect with a clean navigation
-      window.location.href = redirectPath;
+      // Navigate to appropriate dashboard
+      setTimeout(() => {
+        navigate(redirectPath, { replace: true });
+      }, 100);
 
     } catch (err) {
       console.error('? Login error:', err);
